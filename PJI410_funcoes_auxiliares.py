@@ -16,6 +16,8 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.optimizers import Adam
 
+SEMENTE = 2001088 + 2001247 + 2003061 + 2008193 + 2008620 + 2008880
+
 PALETA = 'summer_r'
 CORES  = ['#007F66', '#339966', '#66B266', '#99CC66', '#CCE566']
 
