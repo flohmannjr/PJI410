@@ -23,22 +23,6 @@ CORES  = ['#007F66', '#339966', '#66B266', '#99CC66', '#CCE566']
 
 LINHA_ESPESSURA = 1
 
-CAMADAS = 4
-
-CAMADA_UNIDADES      = 64
-CAMADA_INICIALIZADOR = 'he_uniform'
-CAMADA_ATIVACAO      = 'relu'
-
-SAIDA_UNIDADES = 1
-SAIDA_ATIVACAO = 'linear'
-
-PERDA       = 'mae'
-OTIMIZADOR  = Adam
-APRENDIZADO = 0.001
-METRICAS    = ['mae', 'mse']
-
-ITERACOES = 500
-
 # https://stackoverflow.com/a/66343730
 
 def set_seeds(seed):
@@ -72,7 +56,10 @@ def avaliar_previsoes(alvos, previsoes):
             'revocacao': relatorio['weighted avg']['recall'],
             'pontuacao-f1': relatorio['weighted avg']['f1-score']}
 
-def obter_conjunto(dados_treino, dados_validacao, q_modelos=10):
+def obter_conjunto(dados_treino, dados_validacao, q_modelos=10, camadas = 4,
+                   camada_unidades = 32, camada_inicializador = 'he_uniform', camada_ativacao = 'relu',
+                   saida_unidades = 1, saida_ativacao = 'sigmoid', perda = 'binary_crossentropy',
+                   otimizador = Adam, aprendizado = 0.001, metricas = ['accuracy'], iteracoes = 50):
 
     conjunto = []
 
@@ -82,15 +69,15 @@ def obter_conjunto(dados_treino, dados_validacao, q_modelos=10):
 
         modelo = Sequential()
 
-        [modelo.add(Dense(units=CAMADA_UNIDADES, kernel_initializer=CAMADA_INICIALIZADOR, activation=CAMADA_ATIVACAO)) for _ in range(CAMADAS)]
-        modelo.add(Dense(units=SAIDA_UNIDADES, activation=SAIDA_ATIVACAO))
+        [modelo.add(Dense(units=camada_unidades, kernel_initializer=camada_inicializador, activation=camada_ativacao)) for _ in range(camadas)]
+        modelo.add(Dense(units=saida_unidades, activation=saida_ativacao))
 
-        modelo.compile(loss=PERDA,
-                       optimizer=OTIMIZADOR(learning_rate=APRENDIZADO),
-                       metrics=METRICAS)
+        modelo.compile(loss=perda,
+                       optimizer=otimizador(learning_rate=aprendizado),
+                       metrics=metricas)
 
         modelo.fit(dados_treino,
-                   epochs=ITERACOES,
+                   epochs=iteracoes,
                    validation_data=dados_validacao,
                    verbose=0)
         
