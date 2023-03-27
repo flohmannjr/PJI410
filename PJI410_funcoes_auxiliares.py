@@ -212,3 +212,16 @@ def gerar_previsoes_futuro(modelo, dados, quantidade_intervalos, janela_tamanho)
         janela = np.append(janela, previsao)[-janela_tamanho:]
 
     return previsoes
+
+def grafico_historico_por_iteracao(historico, chaves, inicio=0):
+
+    for chave in chaves:
+        sns.lineplot(data=historico.history[chave][inicio:], label=chave, linewidth=1)
+
+    plt.title('Histórico por iteração')
+    plt.xlabel('Iteração')
+    plt.ylabel('')
+
+    plt.legend(frameon=True, facecolor='white')
+    plt.show()
+
