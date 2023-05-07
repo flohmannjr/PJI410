@@ -155,7 +155,7 @@ def grafico_series(X_treino=[], y_treino=[],
     semanas = []
 
     if len(X_treino) > 0:
-        sns.lineplot(x=X_treino[inicio:fim], y=y_treino[inicio:fim], color=CORES[4], linewidth=LINHA_ESPESSURA, label='Treino')
+        sns.lineplot(x=X_treino[inicio:fim], y=y_treino[inicio:fim], color=CORES[2], linewidth=LINHA_ESPESSURA, label='Treino')
         semanas.extend(X_treino[inicio:fim])
         base_legenda -= 0.06
 
@@ -165,7 +165,7 @@ def grafico_series(X_treino=[], y_treino=[],
         base_legenda -= 0.06
 
     if len(X_previsao) > 0:
-        sns.lineplot(x=X_previsao[inicio:fim], y=y_previsao[inicio:fim], color=CORES[2], linewidth=LINHA_ESPESSURA, label='Previsão')
+        sns.lineplot(x=X_previsao[inicio:fim], y=y_previsao[inicio:fim], color=CORES[4], linewidth=LINHA_ESPESSURA, label='Previsão')
         semanas.extend(X_previsao[inicio:fim])
         base_legenda -= 0.06
 
